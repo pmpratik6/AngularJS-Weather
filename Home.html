@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Weather Info App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+
+    <script src="js/modernizr.custom.10824.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/weather-app/app.js"></script>
+		<script src="js/weather-app/controllers/mainController.js"></script>
+       
+        <script src="js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript"
+src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+         <script src="js/gmap3.js"></script>
+    <style type="text/css">
+        .drp{width: 200px;
+height: 30px;
+border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"  data-ng-app="WeatherApp" data-ng-controller="mainController" data-ng-init="init()">
+        <!-- ngView:  -->
+        <div>
+            <div class="container ng-scope">
+               
+                    <div class="row">
+                        <div class="col-xs-12"  style="width: 950px;float:left; margin-left:50px">
+                            <div>
+                              
+                                   	<h1>AngularJS WeatherApp</h1>
+                               
+                                	<form class="form-inline" ng-submit="submit()">
+					<input type="text" class="form-control input-lg" placeholder="Enter one or more City Names with (,) in between them." ng-model="loc"/>
+				</form>
+                            </div>
+                             <div ng-show="locations.length>1">
+                 <select class="drp" ng-model="locnSel" ng-options="locn for locn in locations" ng-change="getWeather(locnSel)">
+                     
+                 </select>
+                </div>
+                        </div>
+                    </div>
+               
+                <div ng-show="loader == 1" class="loader"><img src="img/ajax-loader.gif" alt=" "></div>
+                <div class="weather-data" ng-show="status == 200 && data.cod == 200">
+                    <div class="row">
+                        <div class="col-xs-12" style="width: 750px;float:left; margin-left:50px">
+                            <div class="">
+                                <h3 class="ng-binding">{{data.city.name}}, {{data.city.country}}
+                        <small class="ng-binding">Lon:-{{data.city.coord.lat}},Lat:-{{data.city.coord.lon}}</small>
+                                </h3>
+                            </div>
+                             <div id="test"></div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                         <div class="col-xs-4"  >
+                      <div  ng-repeat="List in data.list">
+                                <div class="weather panel panel-primary" style="width: 370px;float:left; margin-left:50px" >
+                                    <div class="panel-heading ng-binding">{{List.date}}</div>
+                                    <div class="panel-body">
+                                        <div >
+                                            <p class="lead ng-binding">
+                                               <img ng-src="http://openweathermap.org/img/w/{{List.weather[0]['icon']}}.png" alt="">
+                                              {{List.temp.day | customKelvinToCelsiusFilter | number:2}}&deg;C &nbsp; {{List.weather[0]['main']}}
+                                            </p>
+                                            <p class="ng-binding">
+                                                {{List.weather[0]['description']}}&nbsp;~&nbsp;
+                High:   {{List.temp.max | customKelvinToCelsiusFilter | number:2}}&deg;C-&nbsp;~&nbsp;
+                Low:  {{List.temp.min | customKelvinToCelsiusFilter | number:2}}&deg;C
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <small class="ng-binding">
+            Wind: {{List.speed}}mps&nbsp;~&nbsp;
+            Pressure: {{List.pressure}} hPa&nbsp;~&nbsp;
+            Humidity: {{List.humidity}}%
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                             </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

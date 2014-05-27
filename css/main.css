@@ -1,0 +1,28 @@
+.no-js .hide-on-no-js {
+	display:none;
+}
+
+form {
+	margin-bottom:20px;
+}
+
+.loader {
+	margin-top:50px;	
+	text-align:center;
+}
+.article {
+margin-left:50px
+}
+.date {
+font-weight: lighter !important;
+font-size: 1.2em;
+color: #ffffff;
+background-color: #428bca;
+border-color: #428bca;
+}
+.panel-heading {
+padding: 10px 15px;
+border-bottom: 1px solid transparent;
+border-top-right-radius: 3px;
+border-top-left-radius: 3px;
+}
